@@ -1,0 +1,14 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #FEFEE2;    
+}
+h1{
+    text-align: center;
+}
+#map{
+    margin-left: 5%;
+    width: 90%;
+    height: 100%;
+}
