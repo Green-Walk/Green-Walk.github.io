@@ -18,16 +18,17 @@
 	<div class="container">
 		<p id="distance"></p>
 		<p id="minute"></p>
+		<p id="co2"></p>
 	</div>
 	<div class="from-group">
-		<input type="text" class="from-control" placeholder="Source Location" id="source">
+		<input type="text" class="from-control" placeholder="Départ" id="source">
 	</div>
 	<div class="from-group">
-		<input type="text" class="from-control" placeholder="Destination Location" id="dest">
+		<input type="text" class="from-control" placeholder="Destination" id="dest">
 	</div>
 	<input type="checkbox" id="maCase" name="maCase" value="valeur1">
 	<label for="maCase">Voulez vous passer par un parc ?</label>
-	<button onclick="executerCommandes()" class="btn btn-primary">Get Directions</button>
+	<button onclick="executerCommandes()" class="btn btn-primary">Itinéraire</button>
 	<div id="map"></div>
 	<script>
 		let map, directionsService, directionsRenderer
@@ -113,11 +114,13 @@
 
 					// Convertir la distance en kilomètres
 					var kilometers = (totalDistance / 1000).toFixed(2);
-					var minutes = (kilometers * 13.5).toFixed(2);
+					var minutes = parseInt(kilometers * 13.5);
+					var co2 = parseInt(kilometers * 150);
 
 					// Afficher la distance dans l'élément HTML
 					document.getElementById('distance').innerHTML = 'Distance totale : ' + kilometers + ' km';
 					document.getElementById('minute').innerHTML = 'Temps : ' + minutes + ' minutes';
+					document.getElementById('co2').innerHTML = co2 + ': grammes de CO2 non rejeté';
 				}
 			});
 		}
