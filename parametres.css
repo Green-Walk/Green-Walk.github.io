@@ -1,0 +1,55 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #FEFEE2;    
+}
+
+h1{
+    padding-left: 15px;
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif ;
+    color: white;
+    margin-bottom: 0;
+
+}
+#Titre{
+    margin-left: 10px;
+    background-color: #A0522D;
+    width: 20%;
+    height: 9%;
+}
+#box{
+    margin-top: 35px;
+    margin-left: 20px;
+    background-color:#A0522D ;
+    width: 30%;
+    height: 15%;
+}
+img{
+    margin-top: 0px;
+    float: right;
+    width: 60px;
+}
+h2{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    padding: 40px;
+}
+#suppress{
+    float: right;
+    margin-top: 35px;
+    margin-left: 20px;
+    background-color:#A0522D ;
+    width: 30%;
+    height: 15%;
+}
+
+#suppress h2{
+padding: 20px;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+
