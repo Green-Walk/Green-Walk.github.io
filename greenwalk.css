@@ -8,6 +8,7 @@ h1{
     text-align: center;
 }
 #map{
+    margin-left: 15px;
     margin-left: 5%;
     width: 90%;
     height: 100%;
