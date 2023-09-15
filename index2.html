@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="greenwalk.css">
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFkEuD3mr8c-uVav1IE7pchiA3suP1Svo&libraries=places"></script>
+</head>
+
+<body onload="initMap()">
+
+	<h1 class="text-center">GreenWalk</h1>
+	<br><br>
+	<div class="container">
+		<p id="distance"></p>
+		<p id="minute"></p>
+	</div>
+	<div class="from-group">
+		<input type="text" class="from-control" placeholder="Source Location" id="source">
+	</div>
+	<div class="from-group">
+		<input type="text" class="from-control" placeholder="Destination Location" id="dest">
+	</div>
+	<input type="checkbox" id="maCase" name="maCase" value="valeur1">
+	<label for="maCase">Voulez vous passer par un parc ?</label>
+	<button onclick="executerCommandes()" class="btn btn-primary">Get Directions</button>
+	<div id="map"></div>
+	<script>
+		let map, directionsService, directionsRenderer
+		let sourceAutocomplete, desAutomplete
+		function initMap() {
+			map = new google.maps.Map(document.getElementById('map'), {
+				center: { lat: 48.857612507753124, lng: 2.343258449786191 },
+				zoom: 13
+			})
+			directionsService = new google.maps.DirectionsService()
+			directionsRenderer = new google.maps.DirectionsRenderer()
+			directionsRenderer.setMap(map)
+
+			sourceAutocomplete = new google.maps.places.Autocomplete(
+				document.getElementById('source')
+			)
+			desAutomplete = new google.maps.places.Autocomplete(
+				document.getElementById("dest")
+			)
+			eauAutomplete = new google.maps.places.Autocomplete(
+				document.getElementById("eau")
+			)
+			bancAutomplete = new google.maps.places.Autocomplete(
+				document.getElementById("banc")
+			)
+			parcAutomplete = new google.maps.places.Autocomplete(
+				document.getElementById("parc")
+			)
+		}
+
+
+		function ouiOuNon(choix, variable) {
+			var maCheckbox = document.getElementById("maCase")
+			var valeurCheckbox = maCheckbox.checked;
+
+			if (valeurCheckbox) {
+				parc =  { lat: 50.2855447769865, lng: 2.7646142734438524 } ;
+			} else {
+				parc =  '';
+			}
+		}
+
+
+		function executerCommandes() {
+			// Première commande
+			// Par exemple, alerte pour un message pop-up
+			ouiOuNon()
+			calcRoute();
+
+		}
+
+		function calcRoute() {
+			var source = document.getElementById('source').value;
+			var dest = document.getElementById('dest').value;
+			console.log(dest)
+			var temp = [];
+
+			if (parc !== '') {
+				temp.push({
+					location: parc,
+					stopover: false
+				});
+			}
+
+			let request = {
+				origin: source,
+				destination: dest,
+				travelMode: 'WALKING',
+				waypoints: temp,
+			}
+
+
+			directionsService.route(request, function (result, status) {
+				if (status == "OK") {
+					directionsRenderer.setDirections(result);
+
+					// Calcul de la distance totale
+					var totalDistance = 0;
+					var myRoute = result.routes[0].legs;
+					for (var i = 0; i < myRoute.length; i++) {
+						totalDistance += myRoute[i].distance.value;
+					}
+
+					// Convertir la distance en kilomètres
+					var kilometers = (totalDistance / 1000).toFixed(2);
+					var minutes = (kilometers * 13.5).toFixed(2);
+
+					// Afficher la distance dans l'élément HTML
+					document.getElementById('distance').innerHTML = 'Distance totale : ' + kilometers + ' km';
+					document.getElementById('minute').innerHTML = 'Temps : ' + minutes + ' minutes';
+				}
+			});
+		}
+
+	</script>
+
+</body>
+
+</html>
